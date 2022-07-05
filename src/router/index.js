@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../components/Login.vue'
 import Home from '../views/Home.vue'
 import Favorites from '../views/Favorites.vue'
+import store from '@/store'
 
 const routes = [
   {
@@ -12,12 +13,26 @@ const routes = [
   {
     path: '/home',
     name: 'Home',
-    component: Home
+    component: Home,
+    beforeEnter: (to, from, next) => {
+      if(!store.getters['auth/user']){
+        return next({
+          name: 'Login'
+        })
+      }
+    }
   },
   {
     path: '/bookmarks',
     name: 'Favorites',
-    component: Favorites
+    component: Favorites,
+    beforeEnter: (to, from, next) => {
+      if(!store.getters['auth/user']){
+        return next({
+          name: 'Login'
+        })
+      }
+    }
   },
   {
     path: '/signup',
