@@ -15,11 +15,12 @@ const routes = [
     name: 'Home',
     component: Home,
     beforeEnter: (to, from, next) => {
-      if(!store.getters['auth/user']){
+      if(!store.getters['auth/authenticated']){
         return next({
           name: 'Login'
         })
       }
+      next()
     }
   },
   {
@@ -27,11 +28,12 @@ const routes = [
     name: 'Favorites',
     component: Favorites,
     beforeEnter: (to, from, next) => {
-      if(!store.getters['auth/user']){
+      if(!store.getters['auth/authenticated']){
         return next({
           name: 'Login'
         })
       }
+      next()
     }
   },
   {

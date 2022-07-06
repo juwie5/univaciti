@@ -1,6 +1,5 @@
 import axios from 'axios'
 import router from '../router/index'
-import { Store } from 'vuex'
 
 
 export default{
@@ -9,6 +8,9 @@ export default{
         user: null
     },
     getters: {
+      authenticated(state){
+        return state.user
+    },
         user(state){
             return state.user
         }
@@ -38,7 +40,7 @@ export default{
                 }) 
                 if(res.status == 200){
                   console.log(res.data.user)
-                  router.push('home')
+                  router.push('/home')
                   commit('SET_USER', res.data.user)
                   
                 } else {
