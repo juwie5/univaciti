@@ -88,6 +88,7 @@ export default{
       logout({commit}){
         commit('SET_USER', 'null')
         router.push('/')
-      }
+      },
+    
     }
 }
