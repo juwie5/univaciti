@@ -39,7 +39,6 @@ export default{
                   }
                 }) 
                 if(res.status == 200){
-                  console.log(res.data.user)
                   router.push('/home')
                   commit('SET_USER', res.data.user)
                   

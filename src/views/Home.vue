@@ -16,13 +16,13 @@
               <h2>{{movie.title}}</h2>
               <p>{{movie.overview}}</p>
               <p>Ratings : {{movie.vote_average}}</p>
-              <button>Add to Favorites</button>
+              <button @click="addFav()">Add to Favorites</button>
             </div> 
          </div>
         </div>
-        <div>
-          <button @click="goToPrevious()"><img src="/../assets/left.svg"></button>
-          <button @click="goToNext()"><img src="/../assets/right.svg"></button>
+        <div class="pagin-btn">
+          <button @click="goToPrevious()"><img src="@/assets/left.svg"></button>
+          <button @click="goToNext()"><img src="@/assets/right.svg"></button>
         </div>
     </section>
   </div>
@@ -36,7 +36,9 @@ export default {
   name: 'Home',
   data : () => {
     return {
-      movieData : {}
+      movieData : {},
+      currentPage: 1,
+      favourites : {}
     }
   },
   computed:{
@@ -52,8 +54,9 @@ export default {
       this.logout()
     },
     async movies(){
-      const MOVIE_API ="https://api.themoviedb.org/3/discover/movie?api_key=265736ba62602398f8203c161d8b247f&language=en-US&sort_by=popularity.desc&page=1"
+      const MOVIE_API =`https://api.themoviedb.org/3/discover/movie?api_key=265736ba62602398f8203c161d8b247f&language=en-US&sort_by=popularity.desc&page=${this.currentPage}`
       const IMG_APi = "https://image.tmdb.org/t/p/w500/"
+
      try{
         const res = await axios.get(MOVIE_API)
         if(res.status == 200){
@@ -63,14 +66,24 @@ export default {
             item.poster_path = IMG_APi + item.poster_path
           })
           this.movieData = r
-          console.log(this.movieData)
         }
      } catch (err){
       console.log(err)
      }
+    },
+    goToNext(){
+      this.currentPage = this.currentPage + 1
+      this.movies()
+    },
+    goToPrevious(){
+      this.currentPage = this.currentPage - 1
+      this.movies()
+    }, 
+    addFav(){
+      console.log(this.movie.id)
     }
   },
-  mounted() {
+  created() {
     this.movies()
   }
   
@@ -122,6 +135,19 @@ export default {
   height: 250px;
   object-fit: contain;
   float: left;
+}
+
+.pagin-btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 30px;
+
+  button{
+        width: 50px;
+    height: 30px;
+    margin-left: 5px;
+  }
 }
   
 </style>
