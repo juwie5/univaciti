@@ -8,12 +8,12 @@
                             <input type="text" name="email" id="email" placeholder="email" v-model="form.email" required>
                             <div class="pass">
                                 <input type="password" name="password" id="password" placeholder="password" v-model="form.password" required ref="password">
-                                <p class="pass-toggle" v-if="hide" @click="showPassword()">SHOW</p>
-                                <p class="pass-toggle" v-if="!hide" @click="showPassword()">HIDE</p>
+                                <p class="pass-toggle" v-if="hide" @click="showPassword">SHOW</p>
+                                <p class="pass-toggle" v-if="!hide" @click="showPassword">HIDE</p>
                             </div>
                         </div>
                         <p class="pass-forgot">Forgot Password?</p>
-                        <button type="button" class="btn signin-acct-btn" @click="loginIn()">Sign in</button>
+                        <button type="button" class="btn signin-acct-btn" @click="loginIn">Sign in</button>
                        
                         <p class="dont-have-acct">
                             <router-link to="/signup">Create account</router-link> 

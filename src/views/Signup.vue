@@ -13,8 +13,8 @@
                     <div class="pass">
                             <input type="password" name="password" id="password" placeholder="Password" v-model="form.password" required ref="password">
                             <p>Password must be between 6 to 20 characters which contain at least one numeric digit, one uppercase and one lowercase letter.</p>
-                            <p class="pass-toggle" v-if="hide" @click="showPassword()">SHOW</p>
-                            <p class="pass-toggle" v-if="!hide" @click="showPassword()">HIDE</p>
+                            <p class="pass-toggle" v-if="hide" @click="showPassword">SHOW</p>
+                            <p class="pass-toggle" v-if="!hide" @click="showPassword">HIDE</p>
                         </div>
                     <button type="submit" class="btn create-acct-btn">Create account</button>
                     <p><router-link class="acct" to="/">Sign in</router-link> if you already have an account.</p>

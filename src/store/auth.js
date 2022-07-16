@@ -5,7 +5,8 @@ import router from '../router/index'
 export default{
     namespaced: true,
     state: {
-        user: null
+        user: null,
+        movies: {}
     },
     getters: {
       authenticated(state){
@@ -19,6 +20,9 @@ export default{
         SET_USER (state, data){
             state.user = data 
           },
+        SET_MOVIE(state, data){
+          state.moive = data  
+        }
           
     },
     actions: {
@@ -50,6 +54,7 @@ export default{
             }
       },
       async signUp({dispatch},credrentials){
+              
             let email = credrentials.email
             let firstname = credrentials.firstname
             let lastname = credrentials.lastname
@@ -88,6 +93,10 @@ export default{
         commit('SET_USER', 'null')
         router.push('/')
       },
-    
+      addMovie({ commit }, credrentials){
+          // let movie = credrentials.movie
+           
+          commit('SET_MOVIE', movie)
+      }
     }
 }

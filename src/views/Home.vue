@@ -6,23 +6,23 @@
           <ul class="nav-list">
             <li><router-link to="/bookmarks">Favorites</router-link></li>
             <li>{{user.email}}</li>
-            <li @click="clearStorage()">Logout</li>
+            <li @click="clearStorage">Logout</li>
           </ul>
         </nav>
         <div class="movie">
-         <div v-for="movie in movieData" :key="movie.id" class="movie-card">
+         <div v-for="movie in movieData" :key="movie.id" class="movie-card" ref="movie" :id="movie.id">
             <div><img :src="movie.poster_path" alt="" class="movie-img"></div>
             <div>
               <h2>{{movie.title}}</h2>
               <p>{{movie.overview}}</p>
               <p>Ratings : {{movie.vote_average}}</p>
-              <button @click="addFav()">Add to Favorites</button>
+              <button @click="addFav(movie)">Add to Favorites</button>
             </div> 
          </div>
         </div>
         <div class="pagin-btn">
-          <button @click="goToPrevious()"><img src="@/assets/left.svg"></button>
-          <button @click="goToNext()"><img src="@/assets/right.svg"></button>
+          <button @click="goToPrevious"><img src="@/assets/left.svg"></button>
+          <button @click="goToNext"><img src="@/assets/right.svg"></button>
         </div>
     </section>
   </div>
@@ -38,7 +38,7 @@ export default {
     return {
       movieData : {},
       currentPage: 1,
-      favourites : {}
+      favourites : []
     }
   },
   computed:{
@@ -48,7 +48,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      logout : 'auth/logout'
+      logout : 'auth/logout',
+      addMovie: 'auth/addMovie'
     }),
     clearStorage(){
       this.logout()
@@ -60,7 +61,7 @@ export default {
      try{
         const res = await axios.get(MOVIE_API)
         if(res.status == 200){
-          
+          npm
           let r = res.data.results
           r.forEach((item) => {
             item.poster_path = IMG_APi + item.poster_path
@@ -79,8 +80,9 @@ export default {
       this.currentPage = this.currentPage - 1
       this.movies()
     }, 
-    addFav(){
-      console.log(this.movie.id)
+    addFav(movie){
+     this.favourites.push(movie)
+     console.log(this.favourites)
     }
   },
   created() {
